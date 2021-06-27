@@ -16,6 +16,7 @@ import com.duyts.imageapplication.util.Utils
 import com.duyts.imageapplication.viewmodel.MainViewModel
 import com.duyts.imageapplication.viewmodel.ViewModelProviderFactory
 
+
 class MainActivity : BaseActivity() {
 
     private lateinit var viewModel: MainViewModel
@@ -39,6 +40,7 @@ class MainActivity : BaseActivity() {
                 LinearLayoutManager(this@MainActivity, LinearLayoutManager.VERTICAL, false)
             setHasFixedSize(true)
         }
+
         viewBinding.imageSliderViewPager.setPageTransformer(MarginPageTransformer(50))
     }
 
@@ -51,21 +53,31 @@ class MainActivity : BaseActivity() {
                 when (response) {
                     is Resource.Success -> {
                         Log.d("CHRIS", data.toString())
-                        viewBinding.imageSliderViewPager.adapter =
-                            ImageViewPagerAdapter(this, data?.profile?.images ?: emptyList())
-                        viewBinding.bottomRecyclerView.run {
-                            adapter = ImageAdapter(
-                                applicationContext,
-                                data?.profile?.images ?: emptyList()
-                            )
+                        viewBinding.run {
+                            imageSliderViewPager.apply {
+                                adapter = ImageViewPagerAdapter(
+                                    this@MainActivity,
+                                    data?.profile?.images ?: emptyList()
+                                )
+                                viewBinding.tabDots.setViewPager2(this)
+                            }
+                            bottomRecyclerView.apply {
+                                adapter = ImageAdapter(
+                                    applicationContext,
+                                    data?.profile?.images ?: emptyList()
+                                )
+                            }
+                            avatarImageView.apply {
+                                Glide.with(this@MainActivity).load(R.drawable.user_icon)
+                                    .circleCrop()
+                                    .into(this)
+                            }
+                            usernameTextView.text = data?.profile?.name
+                            displayNameTextView.text = data?.profile?.name
+                            dobTextView.text =
+                                Utils.milisecondToDobFormat(data?.profile?.birthdate!! * 1000)
                         }
-                        viewBinding.avatarImageView.apply {
-                            Glide.with(this@MainActivity).load(R.drawable.user_icon).circleCrop().into(this)
-                        }
-                        viewBinding.usernameTextView.text = data?.profile?.name
 
-                        viewBinding.displayNameTextView.text = data?.profile?.name
-                        viewBinding.dobTextView.text = Utils.milisecondToDobFormat(data?.profile?.birthdate!! * 1000)
                     }
 
                     is Resource.Failed -> {

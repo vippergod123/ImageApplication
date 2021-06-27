@@ -34,8 +34,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:text="ASdasd"
-                android:textStyle="bold"
                 android:textSize="16sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@id/avatarImageView"
                 app:layout_constraintStart_toEndOf="@id/avatarImageView"
                 app:layout_constraintTop_toTopOf="@id/avatarImageView" />
@@ -55,23 +55,38 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:adjustViewBounds="true"
+                android:overScrollMode="never"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintDimensionRatio="w,1:1"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/avatarImageView"
                 app:layout_constraintVertical_bias="0.10" />
 
+            <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+                android:id="@+id/tabDots"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:dotsColor="@color/teal_700"
+                app:dotsCornerRadius="8dp"
+                app:dotsSize="10dp"
+                app:dotsSpacing="4dp"
+                app:dotsWidthFactor="2.5"
+                app:layout_constraintEnd_toEndOf="@id/imageSliderViewPager"
+                app:layout_constraintStart_toStartOf="@id/imageSliderViewPager"
+                app:layout_constraintTop_toBottomOf="@id/imageSliderViewPager"
+                app:progressMode="true"
+                app:selectedDotColor="@color/teal_700" />
+
             <TextView
                 android:id="@+id/displayNameTextView"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:text="Amy Nguyen"
                 android:textSize="26sp"
                 android:textStyle="bold"
-                android:layout_marginTop="20dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/imageSliderViewPager"
                 app:layout_constraintStart_toStartOf="@id/avatarImageView"
-                />
+                app:layout_constraintTop_toBottomOf="@id/tabDots" />
 
             <ImageView
                 android:id="@+id/dobIconImageView"
